@@ -2,6 +2,10 @@
 
 let controller = function() {
 
+  if (localStorage.getItem("commentsList")) {
+    $(".comments").html(localStorage.getItem("commentsList"));
+  }
+
   let addCommentFromInputBox = function() {
     //Semmy uses "$" to name variables that will contain jQuery objects
     let $new_comment;
@@ -12,6 +16,10 @@ let controller = function() {
       $(".comments").append($new_comment);
       //$new_comment.fadeIn();
       $(".comment-input input").val("");
+
+      //log the list of paragraph elements
+      localStorage.setItem("commentsList", $(".comments").html());
+      console.log(localStorage.getItem("commentsList"));
     }
   };
 
@@ -26,4 +34,15 @@ let controller = function() {
   });
 };
 
-$(document).ready(controller);
+let deleteHandler = () => {
+  console.log("dH");
+  localStorage.removeItem("commentsList");
+  window.location.reload();
+};
+
+$(document).ready(() => {
+  //select the delete button
+  let buttonElem = document.querySelectorAll('button')[1];
+  buttonElem.addEventListener('click', deleteHandler);
+  controller();
+});
