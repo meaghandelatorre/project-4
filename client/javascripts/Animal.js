@@ -55,6 +55,7 @@ class Dog extends Animal {
     this.sound = sound;
   }
   bark() {
+    console.log(this.sound + "!" + this.sound + "!");
     return this.sound + "! " + this.sound + "!";
   }
   run(speed) {
